@@ -15,24 +15,19 @@ exports.deterministicPartitionKey = (input) => {
   }
 
   // There is input!
-  if (input.partitionKey) {
-    // Destructure it if it's in object format
-    input = input.partitionKey;
+  // Destructure it if it's in object format
+  if (input.partitionKey) output = input.partitionKey;
 
-    // Stringify all !string to string
-    if (typeof input !== "string") input = JSON.stringify(input);
+  // Stringify all !string to string and hash it
+  else output = hashIt(JSON.stringify(input));
 
-    output = input;
-  } else {
-    // Stringify all !string to string
-    input = JSON.stringify(input);
-    
-    // Hash it
-    output = hashIt(input)
-  }
+  // Stringify all !string to string
+  if (typeof output !== "string") output = JSON.stringify(output);
 
+  // Hash it if its too long
   if (output.length > MAX_PARTITION_KEY_LENGTH) output = hashIt(output);
 
+  // And return it
   return output;
 };
 
