@@ -8,17 +8,12 @@ exports.deterministicPartitionKey = (input) => {
   // At first set the solution to the default
   let output = DEFAULT_PARTITION_KEY;
 
-  // There's no input at all, or it's zero or null or
-  // otherwise falsy, skip to return default:
-  if (!input) {
-    return DEFAULT_PARTITION_KEY;
-  }
+  // There's no input or FALSY, return default
+  if (!input) return DEFAULT_PARTITION_KEY;
 
-  // There is input!
-  // Destructure it if it's in object format
+  // There is input! Destructure it if it's in "precomputed"
+  // object format or, otherwise, hash the stringified input.
   if (input.partitionKey) output = input.partitionKey;
-
-  // Stringify all !string to string and hash it
   else output = hashIt(JSON.stringify(input));
 
   // Stringify all !string to string
