@@ -16,3 +16,31 @@ Based on the information given, break this ticket down into 2-5 individual ticke
 You will be graded on the level of detail in each ticket, the clarity of the execution plan within and between tickets, and the intelligibility of your language. You don't need to be a native English speaker, but please proof-read your work.
 
 ## Your Breakdown Here
+
+First, I'll restate the problem
+
+DB TABLES
+=========
+-facilities
+-agents
+-shifts
+
+getShiftsByFacility(facilityID) => []shifts{agentMetadata}
+
+generateReport([]shifts) => makes a PDF ...for compliance
+
+OK right now:
+-there is a PrimaryKey of ID for each agent.
+-the facilities need their own key for each agent
+
+=====
+2-5 TICKETS BREAKDOWN
+====
+TICKET 1: Add a table facility_foreign_keys with the columns agent_id, facility_id, facility_external_agent_id
+
+TICKET 2: Add the facility-specific external IDs to getShiftsByFacility
+- Refactor getShiftsByFacility so that the agentMetadata when it gets joined
+  also joins `facility_external_agent_id` from the table `facility_foreign_keys`
+  where facilityID == facility_id AND agent_id == this_shift_row.agent_id
+
+TICKET 3: generateReport
