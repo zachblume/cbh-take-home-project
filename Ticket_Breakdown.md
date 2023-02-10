@@ -36,11 +36,15 @@ OK right now:
 =====
 2-5 TICKETS BREAKDOWN
 ====
-TICKET 1: Add a table facility_foreign_keys with the columns agent_id, facility_id, facility_external_agent_id
+TICKET 1: Add a table facility_foreign_keys with the columns agent_id, facility_id, facility_external_agent_id 
+(simple, can push to production after approval in 1 worksession)
 
-TICKET 2: Add the facility-specific external IDs to getShiftsByFacility
+TICKET 2: This wasn't specific in the problem, but we need to add to our application some way for the facilities to import and map their external IDs to the existing batch of agent IDs already in our system. This is a complex problem with importing, storage, a new application control page, and lots of strange data-importing data-matching edge cases to handle and push to our live application.
+(complex, will need multiple approvals, will take weeks)
+
+TICKET 3: Add the facility-specific external IDs to getShiftsByFacility
 - Refactor getShiftsByFacility so that the agentMetadata when it gets joined
   also joins `facility_external_agent_id` from the table `facility_foreign_keys`
   where facilityID == facility_id AND agent_id == this_shift_row.agent_id
 
-TICKET 3: generateReport
+TICKET 4: generateReport
