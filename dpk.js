@@ -13,11 +13,13 @@ exports.deterministicPartitionKey = (input) => {
 
   // There is input! Destructure it if it's in "precomputed"
   // object format or, otherwise, hash the stringified input.
-  if (input.partitionKey) output = input.partitionKey;
-  else output = hashIt(JSON.stringify(input));
-
-  // Stringify all !string to string
-  if (typeof output !== "string") output = JSON.stringify(output);
+  if (input.partitionKey)
+    output =
+      (typeof input.partitionKey !== "string")
+      ? JSON.stringify(input.partitionKey)
+      : input.partitionKey;
+  else
+    output = hashIt(JSON.stringify(input));
 
   // Hash it if its too long
   if (output.length > MAX_PARTITION_KEY_LENGTH) output = hashIt(output);
