@@ -28,7 +28,7 @@ exports.deterministicPartitionKey = (input) => {
     input = JSON.stringify(input);
     
     // Hash it
-    output = hashIt(output)
+    output = hashIt(input)
   }
 
   if (output.length > MAX_PARTITION_KEY_LENGTH) output = hashIt(output);
